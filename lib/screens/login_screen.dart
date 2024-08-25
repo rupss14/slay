@@ -1,198 +1,229 @@
 import 'package:flutter/material.dart';
-import 'register_screen.dart';
+import 'package:flutter/gestures.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:slay/constants/colors.dart';
+import 'package:slay/screens/register_screen.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          image: DecorationImage(
-            image: AssetImage("assets/images/imjuhug1.jpg"),
-            fit: BoxFit.cover,
-            opacity: 0.3,
-          ),
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Username TextField
-                TextField(
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    prefixIcon: Icon(Icons.email),
-                    labelStyle: TextStyle(
-                      //color: Colors.white,
-                      //fontFamily: 'Winterlady',
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                    ),
-                    //filled: true,
-                    //fillColor: Colors.black.withOpacity(0.6),
-                  ),
-                ),
-                SizedBox(height: 20),
-
-                // Password TextField
-                TextField(
-                  obscureText: true,
-                  obscuringCharacter: '•',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock),
-                    labelStyle: TextStyle(
-                      //color: Colors.white,
-                      //fontFamily: 'Winterlady',
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                    ),
-                    //filled: true,
-                    //fillColor: Colors.withOpacity(0.3),
-                  ),
-                ),
-                SizedBox(height: 40),
-
-                // Login Button
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-                    backgroundColor: Color(0xFFeee8aa),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    // Handle login action
-                  },
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      //fontFamily: 'Winterlady',
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-
-                // Sign in with Google button
-                ElevatedButton.icon(
-                  icon: Image.asset(
-                    'assets/images/google_logo.png', // Add the Google logo asset
-                    height: 24.0,
-                    width: 24.0,
-                  ),
-                  label: Text(
-                    'Sign in with Google',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    // Handle Google sign-in action
-                  },
-                ),
-                SizedBox(height: 20),
-
-                // Sign in with Facebook button
-                ElevatedButton.icon(
-                  icon: Icon(
-                    Icons.facebook,
-                    color: Colors.white,
-                    size: 24.0,
-                  ),
-                  label: Text(
-                    'Sign in with Facebook',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    // Handle Facebook sign-in action
-                  },
-                ),
-                SizedBox(height: 20),
-
-                // "Don't have an account?" Text with clickable "Register Here"
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have an account?",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: () {
-                        // Navigate to RegisterPage
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => RegisterPage()),
-                        );
-                      },
-                      child: Text(
-                        'Register here',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 16,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Background Image
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/login_page_images/background_image2.jpg'),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
+          // Darkening Gradient
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            // decoration: BoxDecoration(
+            //   gradient: LinearGradient(
+            //     colors: [
+            //       Colors.black.withOpacity(0.6), // Dark at the top
+            //       Colors.black.withOpacity(0.3), // Lighter at the bottom
+            //     ],
+            //     begin: Alignment.topCenter,
+            //     end: Alignment.bottomCenter,
+            //   ),
+            // ),
+          ),
+          // Foreground Content
+          Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.only(top: 150, left: 16.0, right: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start, // Align content to the left
+                    mainAxisSize: MainAxisSize.min, // Minimize column size to fit content
+                    children: [
+                      // Header Text
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0), // Add left margin
+                        child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Log into\n',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32,
+                                  fontFamily: 'LogInFontBold',
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'your account',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32,
+                                  fontFamily: 'LogInFontBold',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 40),
+                      // Phone Number/Email Input
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0), // Add left margin
+                        child: TextField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 1), // Adjust vertical padding here
+                            labelText: 'Phone Number/Email',
+                            labelStyle: TextStyle(color: Color(0xFFd9d9d9), fontFamily: 'LogInFont'),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      // Password Input
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0), // Add left margin
+                        child: TextField(
+                          style: TextStyle(color: Colors.white),
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 1), // Adjust vertical padding here
+                            labelText: 'Password',
+                            labelStyle: TextStyle(color: Color(0xFFd9d9d9), fontFamily: 'LogInFont'),
+                            suffixText: 'Forget?',
+                            suffixStyle: TextStyle(color: Color(0xFFd9d9d9), fontFamily: 'LogInFont'),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 40),
+                      // Log In Button
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0), // Horizontal padding
+                        child: SizedBox(
+                          width: double.infinity, // Full width
+                          child: TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              backgroundColor: Color(0xFFE5C366),
+                              foregroundColor: Color(0xFFeee8aa),
+                              padding: EdgeInsets.symmetric(vertical: 12), // Button padding
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero, // Sharp edges
+                              ),
+                            ),
+                            child: Text('Log In', style: TextStyle(fontFamily: 'LogInFont', color: Colors.black)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      // "or Sign In with" Text
+                      Center(
+                        child: Text(
+                          "or Sign In with",
+                          style: TextStyle(color: Color(0xFFd9d9d9), fontFamily: 'LogInFont'),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      // Social Buttons
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Facebook Button
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4.0), // Add spacing between buttons
+                            child: SizedBox(
+                              width: 150,
+                              child: TextButton.icon(
+                                onPressed: () {},
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.transparent, // Transparent background
+                                  foregroundColor: Colors.white,
+                                  padding: EdgeInsets.symmetric(vertical: 12),
+                                  side: BorderSide(color: Color(0xFFE5C366), width: 2), // White outline
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.zero, // Sharp edges
+                                  ),
+                                ),
+                                icon: Icon(FontAwesome.facebook, color: Colors.white, size: 20), // Smaller size
+                                label: Text('Facebook', style: TextStyle(fontFamily: 'LogInFont')),
+                              ),
+                            ),
+                          ),
+                          // Google Button
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4.0), // Add spacing between buttons
+                            child: SizedBox(
+                              width: 150,
+                              child: TextButton.icon(
+                                onPressed: () {},
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.transparent, // Transparent background
+                                  foregroundColor: Colors.white,
+                                  padding: EdgeInsets.symmetric(vertical: 12),
+                                  side: BorderSide(color: Color(0xFFE5C366), width: 2), // White outline
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.zero, // Sharp edges
+                                  ),
+                                ),
+                                icon: Icon(FontAwesome.google, color: Colors.white, size: 20), // Smaller size
+                                label: Text('Google', style: TextStyle(fontFamily: 'LogInFont')),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ),
+              // Sign Up Link
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: RichText(
+                    text: TextSpan(
+                      text: "Don't have an account? ",
+                      style: TextStyle(color: Color(0xFFd9d9d9), fontFamily: 'LogInFont'),
+                      children: [
+                        TextSpan(
+                          text: 'Sign up.',
+                          style: TextStyle(color: Color(0xFFd9d9d9), fontFamily: 'LogInFont',fontWeight: FontWeight.w900,),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage(),
+                              ));
+
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

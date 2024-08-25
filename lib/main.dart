@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:slay/screens/chatbot_page.dart';
+import 'package:slay/screens/login_screen.dart';
+import 'package:slay/screens/register_screen.dart';
 import 'package:slay/screens/onboarding_screen.dart';
 import 'package:slay/screens/splash_screen.dart';
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor:Color(0xFF4a790),
       ),
-      home: ChatPage(),
+      home: LoginScreen(),
     );
   }
 }

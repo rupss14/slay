@@ -38,6 +38,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   image_picker: ^1.1.2
   intl: ^0.18.0
+  fluttericon: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,7 @@ flutter:
      - assets/images/on_boarding_images/
      - assets/images/icons/
      - assets/images/chatbot_images/
+     - assets/images/login_page_images/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -88,6 +90,15 @@ flutter:
     - family: OnBoardingFont1
       fonts:
         - asset: assets/fonts/Frasa-Medium-BF65a5fcadb2442.otf
+
+    - family: LogInFont
+      fonts:
+        - asset: assets/fonts/JosefinSans-Regular.ttf
+
+    - family: LogInFontBold
+      fonts:
+        - asset: assets/fonts/JosefinSans-Bold.ttf
+
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
