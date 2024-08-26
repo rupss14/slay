@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:fluttericon/font_awesome_icons.dart'; // Import Slidable package
+import 'package:slay/screens/payment_page.dart';
+import 'package:slay/screens/shipment_page.dart';
 
 class MyBagScreen extends StatefulWidget {
   @override
@@ -100,7 +101,7 @@ class _MyBagScreenState extends State<MyBagScreen> {
             // Centered Checkout button
             SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.only(bottom:8.0),
+              padding: const EdgeInsets.only(bottom:10.0),
               child: Center(
                 child: TextButton(
                   onPressed: () {},
@@ -244,7 +245,7 @@ class _MyBagScreenState extends State<MyBagScreen> {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade400,
-            blurRadius: 10,
+            blurRadius: 15,
 
             offset: Offset(0, 4),
           ),
@@ -252,7 +253,13 @@ class _MyBagScreenState extends State<MyBagScreen> {
       ),
       child: ElevatedButton(
         onPressed: () {
-          // Perform checkout logic here
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ShipmentPage(totalAmount: getTotalAmount()),
+            ),
+          );
+
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xFFE5C366),

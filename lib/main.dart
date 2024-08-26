@@ -4,6 +4,7 @@ import 'package:slay/screens/login_screen.dart';
 import 'package:slay/screens/my_bag_screen.dart';
 import 'package:slay/screens/register_screen.dart';
 import 'package:slay/screens/onboarding_screen.dart';
+import 'package:slay/screens/shipment_page.dart';
 import 'package:slay/screens/splash_screen.dart';
 
 void main(){
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor:Color(0xFF4a790),
       ),
-      home: MyBagScreen(),
+      home: ChatPage(),
     );
   }
 }
