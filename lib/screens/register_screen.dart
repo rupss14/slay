@@ -38,6 +38,21 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
 
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0.9), // Dark at the top
+                  Colors.black.withOpacity(0.3), // Lighter at the bottom
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
+
           // Foreground Content
           Column(
             children: [
@@ -62,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                           Text(
-                            "Your Account",
+                            "your account",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,

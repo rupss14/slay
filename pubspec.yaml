@@ -39,6 +39,7 @@ dependencies:
   image_picker: ^1.1.2
   intl: ^0.18.0
   fluttericon: ^2.0.0
+  flutter_slidable: ^3.1.1
 
 dev_dependencies:
   flutter_test:
@@ -64,10 +65,13 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+     - assets/images/
+     - assets/images/splash_screen_images/
      - assets/images/on_boarding_images/
      - assets/images/icons/
-     - assets/images/chatbot_images/
      - assets/images/login_page_images/
+     - assets/images/chatbot_images/
+     - assets/images/my_bag_images/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -98,6 +102,14 @@ flutter:
     - family: LogInFontBold
       fonts:
         - asset: assets/fonts/JosefinSans-Bold.ttf
+
+    - family: Winterlady
+      fonts:
+        - asset: assets/fonts/Winterlady.ttf
+
+    - family: Averia
+      fonts:
+        - asset: assets/fonts/AveriaSerifLibre-Regular.ttf
 
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700

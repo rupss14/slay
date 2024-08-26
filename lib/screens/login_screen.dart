@@ -25,16 +25,16 @@ class LoginScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             height: double.infinity,
-            // decoration: BoxDecoration(
-            //   gradient: LinearGradient(
-            //     colors: [
-            //       Colors.black.withOpacity(0.6), // Dark at the top
-            //       Colors.black.withOpacity(0.3), // Lighter at the bottom
-            //     ],
-            //     begin: Alignment.topCenter,
-            //     end: Alignment.bottomCenter,
-            //   ),
-            // ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0.4), // Dark at the top
+                  Colors.black.withOpacity(0.3), // Lighter at the bottom
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
           ),
           // Foreground Content
           Column(

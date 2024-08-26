@@ -17,8 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState(){
     super.initState();
-    Timer(Duration(seconds: 4),
-    ()=>Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginScreen(),
+    Timer(Duration(seconds: 5),
+    ()=>Navigator.push(context,MaterialPageRoute(builder: (context)=>OnboardingScreen(),
     )));
   }
   @override
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: BoxDecoration(
             color: Colors.black,
             image: DecorationImage(
-              image: AssetImage("assets/images/image11.jpg"),
+              image: AssetImage("assets/images/splash_screen_images/splash_screen_image.jpg"),
               fit: BoxFit.cover,
               opacity: 0.3,
             )),

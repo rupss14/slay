@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:slay/screens/login_screen.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Widget> _onboardingPages = [
     OnboardingPage(
-      image: 'assets/images/on_boarding_images/onboarding_image11.png',
+      image: 'assets/images/on_boarding_images/onboarding_image1.png',
       title: 'Fashion Query Answering',
       description: 'Provides accurate answers to various fashion-related questions.',
     ),
@@ -50,23 +51,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                //color: Colors.black,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/on_boarding_images/gradient.png"),
-                  fit: BoxFit.cover,
-
-                )),
-            // decoration: BoxDecoration(
-            //   gradient: RadialGradient(
-            //     center: Alignment.topLeft,
-            //     radius: 0.6, // Adjusts the size of the gradient
-            //     colors: [
-            //       Colors.grey,
-            //       Colors.black,
-            //     ],
-            //     stops: [0.2, 1.0], // Smooth transition from grey to black over 20% of the radius
-            //   ),
-            // ),
+              image: DecorationImage(
+                image: AssetImage("assets/images/on_boarding_images/gradient.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           // Page View for Onboarding Pages
           PageView.builder(
@@ -83,9 +72,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           // Top Row with Heading and Close Icon
           Positioned(
-            top: 30, // Adjusted to move contents slightly higher
-            left: 20,
-            right: 20,
+            top: 40, // Adjusted to move contents slightly higher
+            left: 40,
+            right: 40,
+
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -97,7 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       'slay',
                       style: TextStyle(
                         fontFamily: 'OnBoardingFont2',
-                        color: Color(0xFFf7e98e), // Light color for the heading
+                        color: Color(0xFFE5C366), // Light color for the heading
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -127,15 +117,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 // Close Icon
                 IconButton(
-                  icon: Icon(Icons.close, color: Colors.white, size: 24),
+                  icon: Icon(Icons.close_sharp, color: Colors.grey[400], size: 24),
                   onPressed: () {
-                    // Navigate to the home page or handle close action
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(), // Your home page
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                   },
                 ),
               ],
@@ -149,7 +133,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               visible: currentIndex > 0, // Hide if on the first page
               child: IconButton(
                 icon: ImageIcon(
-                  AssetImage("assets/images/icons/arrow_back_icon.png"),
+                  AssetImage("assets/images/icons/back_arrow_icon.png"),
                   size: 50,
                 ),
                 onPressed: () {
@@ -175,14 +159,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: 80,
                 child: FloatingActionButton(
                   backgroundColor: Color(0xFFf7e98e), // Background color of the button
-
                   onPressed: () {
                     if (currentIndex == _onboardingPages.length - 1) {
                       // Navigate to the home page if on the last page
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomePage(), // Your home page
+                          builder: (context) => LoginScreen(), // Your home page
                         ),
                       );
                     } else {
@@ -193,13 +176,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       );
                     }
                   },
-                  child: Icon(
-                    currentIndex == _onboardingPages.length - 1
-                        ? Icons.check // Change to a checkmark on the last page
-                        : Icons.arrow_forward, // Forward arrow icon
-                    color: Colors.black, // Set icon color to black
-                    size: 35, // Adjust icon size
-                  ),
+                  child: currentIndex == _onboardingPages.length - 1
+                      ? Image.asset('assets/images/on_boarding_images/button.png') // Replace with your checkmark image
+                      : Image.asset('assets/images/on_boarding_images/button.png'), // Replace with your forward arrow image
                   shape: CircleBorder(), // Ensure the button is circular
                   elevation: 5, // Optional: adds a shadow
                   splashColor: Color(0xFFeee8aa), // Optional: splash color on press
@@ -231,33 +210,39 @@ class OnboardingPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            image,
-            height: 200,
-            width: 200,// Reduced height for the image
-            //fit: BoxFit.cover, // Ensure the image covers the area without distortion
+          // Container to adjust the position of the image
+          Container(
+            margin: EdgeInsets.only(bottom: 100), // Adjust margin to reduce the gap between the image and title
+            child: Image.asset(
+              image,
+              height: 200,
+              width: 200,
+            ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Text(
             title,
             style: TextStyle(
-              fontFamily: 'OnBoardingFont1',
-              fontSize: 40,
+              fontFamily: 'LogInFontBold',
+              fontSize: 35,
+              color: Colors.white,
               fontWeight: FontWeight.bold,
-              color: Colors.white, // White text color
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 20), // Increased space between title and description
-          Text(
-            description,
-            style: TextStyle(
-              fontFamily: 'OnBoardingFont2',
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.white70, // Slightly lighter white for the description
+          SizedBox(height: 10), // Reduced space between title and description
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20), // Adjust horizontal padding
+            child: Text(
+              description,
+              style: TextStyle(
+                fontFamily: 'OnBoardingFont2',
+                fontSize: 15, // Reduced font size for the description
+                fontWeight: FontWeight.w600,
+                color: Colors.white70, // Slightly lighter white for the description
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
           SizedBox(height: 40), // Space below the description for the button
         ],
