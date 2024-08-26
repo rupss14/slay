@@ -40,6 +40,7 @@ dependencies:
   intl: ^0.18.0
   fluttericon: ^2.0.0
   flutter_slidable: ^3.1.1
+  curved_navigation_bar: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,7 @@ flutter:
      - assets/images/on_boarding_images/
      - assets/images/icons/
      - assets/images/login_page_images/
+     - assets/images/home_screen_images/
      - assets/images/chatbot_images/
      - assets/images/my_bag_images/
 

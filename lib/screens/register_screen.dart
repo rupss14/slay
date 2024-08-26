@@ -2,7 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart'; // For picking images
 import 'dart:io';
-import 'package:fluttericon/font_awesome_icons.dart'; // For social icons
+import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:slay/screens/home_screen.dart'; // For social icons
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -142,7 +143,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: SizedBox(
                           width: double.infinity, // Full width
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => HomePage()),
+                              );
+                            },
                             style: TextButton.styleFrom(
                               backgroundColor: Color(0xFFE5C366),
                               foregroundColor: Color(0xFFeee8aa),

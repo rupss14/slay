@@ -215,7 +215,7 @@ class _ChatPageState extends State<ChatPage> {
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
-                                                image: AssetImage('assets/images/chatbot_images/robot_image1.png'),
+                                                image: AssetImage('assets/images/chatbot_images/robot_image.png'),
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -388,7 +388,7 @@ class _ChatPageState extends State<ChatPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       image: DecorationImage(
-                        image: AssetImage('assets/images/chatbot_images/robot_image1.png'),
+                        image: AssetImage('assets/images/chatbot_images/robot_image.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
