@@ -41,6 +41,8 @@ dependencies:
   fluttericon: ^2.0.0
   flutter_slidable: ^3.1.1
   curved_navigation_bar: ^1.0.6
+  palette_generator: ^0.3.3+4
+  flutter_card_swiper: ^7.0.1
 
 dev_dependencies:
   flutter_test:
@@ -67,12 +69,14 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/
+     - assets/images/logo_image/
      - assets/images/splash_screen_images/
      - assets/images/on_boarding_images/
      - assets/images/icons/
      - assets/images/login_page_images/
      - assets/images/home_screen_images/
      - assets/images/chatbot_images/
+     - assets/images/swipe_to_style_images/
      - assets/images/my_bag_images/
 
 

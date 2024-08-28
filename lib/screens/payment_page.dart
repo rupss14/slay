@@ -15,12 +15,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
   String expiryDate = '';
   String cvv = '';
   String cardHolderName = '';
+  String upiId = ''; // State for UPI ID
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true, // Ensures keyboard does not overlap content
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView( // Wrap the entire content in a SingleChildScrollView
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,38 +31,40 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Payment",
-                    style: TextStyle(
-                      fontSize: 34,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      "Payment",
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context); // Go back to the previous screen
                     },
-                    child: Text(
-                      "back",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Text(
+                        "Back",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 90),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: _buildPaymentForm(),
-                ),
-              ),
-
+              SizedBox(height: 40),
+              _buildPaymentForm(),
+              SizedBox(height: 30),
               _buildTotalAmount(),
-              SizedBox(height: 80),
+              SizedBox(height: 30),
               Padding(
-                padding: const EdgeInsets.only(bottom:65.0),
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Center(child: _buildCheckoutButton(context)),
               ),
             ],
@@ -69,7 +73,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
-
   Widget _buildTotalAmount() {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
@@ -101,6 +104,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
       key: _formKey,
       child: Column(
         children: [
+          // UPI Payment Section at the top
+          _buildUPIPaymentSection(),
+          SizedBox(height: 20),
+
           PaymentTextField(
             labelText: 'Card Number',
             keyboardType: TextInputType.number,
@@ -164,6 +171,49 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
+  Widget _buildUPIPaymentSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "   Pay using UPI",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 10),
+        PaymentTextField(
+          labelText: 'Enter UPI ID',
+          keyboardType: TextInputType.emailAddress,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a UPI ID';
+            }
+            return null;
+          },
+          onSaved: (value) {
+            upiId = value!;
+          },
+        ),
+        SizedBox(height: 20),
+        Center(
+          child: ElevatedButton(
+            onPressed: _processUPIPayment,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFFE5C366),
+              padding: EdgeInsets.symmetric(horizontal: 120, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            child: Text(
+              "Pay via UPI",
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildCheckoutButton(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -207,6 +257,46 @@ class _PaymentScreenState extends State<PaymentScreen> {
       builder: (context) => AlertDialog(
         title: Text('Payment Successful'),
         content: Text('Thank you for your purchase!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context); // Return to previous screen after payment
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _processUPIPayment() {
+    // Validate UPI ID
+    if (upiId.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Invalid UPI ID'),
+          content: Text('Please enter a valid UPI ID'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // Implement UPI payment logic here
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Payment Successful'),
+        content: Text('Thank you for your UPI payment!'),
         actions: [
           TextButton(
             onPressed: () {

@@ -4,50 +4,18 @@ import 'package:slay/screens/payment_page.dart';
 import 'package:slay/screens/shipment_page.dart';
 
 class MyBagScreen extends StatefulWidget {
+  final List<Product> cartItems;
+
+  MyBagScreen({required this.cartItems});
+
   @override
   _MyBagScreenState createState() => _MyBagScreenState();
 }
 
 class _MyBagScreenState extends State<MyBagScreen> {
-  // Sample cart items
-  List<Product> cartItems = [
-    Product(
-      name: 'Lexy Coffee Table',
-      imageUrl: 'assets/images/my_bag_images/coffee_table.jpg',
-      price: 680,
-      color: 'Cherry',
-    ),
-    Product(
-      name: 'Amos Chair',
-      imageUrl: 'assets/images/my_bag_images/chair_image.jpg',
-      price: 280,
-      color: 'Cherry',
-      quantity: 2,
-    ),
-    Product(
-      name: 'Bruex Shelf',
-      imageUrl: 'assets/images/my_bag_images/shelf.jpg',
-      price: 1280,
-      color: 'Cherry',
-    ),
-    Product(
-      name: 'Bruex Shelf',
-      imageUrl: 'assets/images/my_bag_images/shelf.jpg',
-      price: 1280,
-      color: 'Cherry',
-    ),
-    Product(
-      name: 'Bruex Shelf',
-      imageUrl: 'assets/images/my_bag_images/shelf.jpg',
-      price: 1280,
-      color: 'Cherry',
-    ),
-  ];
-
   // Calculate the total amount
   int getTotalAmount() {
-    return cartItems.fold(
-        0, (total, item) => total + (item.price * item.quantity));
+    return widget.cartItems.fold(0, (total, item) => total + (item.price * item.quantity));
   }
 
   @override
@@ -63,22 +31,28 @@ class _MyBagScreenState extends State<MyBagScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "My Bag",
-                  style: TextStyle(
-                    fontSize: 34,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "My Bag",
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context); // Go back to the previous screen
                   },
-                  child: Text(
-                    "back ",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      "Back",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
@@ -88,9 +62,9 @@ class _MyBagScreenState extends State<MyBagScreen> {
             // Spacing below the title
             Expanded(
               child: ListView.builder(
-                itemCount: cartItems.length,
+                itemCount: widget.cartItems.length,
                 itemBuilder: (context, index) {
-                  final item = cartItems[index];
+                  final item = widget.cartItems[index];
                   return _buildCartItem(item, index);
                 },
               ),
@@ -129,7 +103,7 @@ class _MyBagScreenState extends State<MyBagScreen> {
           SlidableAction(
             onPressed: (context) {
               setState(() {
-                cartItems.removeAt(index); // Delete the product from cart
+                widget.cartItems.removeAt(index); // Delete the product from cart
               });
             },
             backgroundColor: Colors.white,
@@ -246,7 +220,6 @@ class _MyBagScreenState extends State<MyBagScreen> {
           BoxShadow(
             color: Colors.grey.shade400,
             blurRadius: 15,
-
             offset: Offset(0, 4),
           ),
         ],
@@ -259,7 +232,6 @@ class _MyBagScreenState extends State<MyBagScreen> {
               builder: (context) => ShipmentPage(totalAmount: getTotalAmount()),
             ),
           );
-
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xFFE5C366),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:slay/screens/chatbot_page.dart';
 import 'package:slay/screens/home_screen.dart';
+import 'package:slay/screens/my_bag_screen.dart';
 import 'package:slay/screens/register_screen.dart';
+import 'package:slay/screens/swipe_to_style.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,7 +17,7 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     HomePage(), // Replace with your actual home screen widget
-    //SwipeToStylePage(), // Replace with your actual search screen widget
+    ClothSwipePage(), // Replace with your actual search screen widget
     ChatPage(), // Replace with your actual chat screen widget
     SearchBar(), // Replace with your actual profile screen widget
   ];
@@ -23,16 +25,57 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            ImageIcon(AssetImage("assets/images/icons/shirt_icon.png")),
-            SizedBox(width: 8),
-            Text('Fashion',
-            style: TextStyle(fontWeight: FontWeight.w600),),
-          ],
+      appBar:AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Row(
+            children: [
+              Image.asset(
+                //"assets/images/logo_image/slay_transparent_background_logo.png",
+                "assets/images/logo_image/slay_logo.png",
+                width: 65,
+                height: 65,
+              ),
+              //SizedBox(width: 5),
+              Text(
+                'slay',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  // fontFamily: 'Winterlady',
+                  fontFamily: 'OnBoardingFont2',
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0), // Align the icons with the title
+            child: IconButton(
+              icon: Icon(Icons.favorite_border_sharp), // Wishlist Icon
+              onPressed: () {
+                // Add wishlist functionality here
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0), // Align the icons with the title
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart_sharp), // Add to Cart Icon
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => MyBagScreen()),
+                // );
+              },
+            ),
+          ),
+        ],
       ),
+
+
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -74,10 +117,10 @@ class _HomePageState extends State<HomePage> {
                 break;
               case 1:
 
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => SwipeToStylePage()),
-              //   );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ClothSwipePage()),
+                );
                 break;
               case 2:
 
@@ -141,9 +184,9 @@ class SpotlightSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),  // Subtle outer shadow
+            color: Color(0xFFfafad2),  // Subtle outer shadow
             blurRadius: 10,
-            spreadRadius: 2,
+            spreadRadius:3,
           ),
         ],
       ),
@@ -392,27 +435,27 @@ class CollectionsSection extends StatelessWidget {
 
 
 class CollectionItem extends StatelessWidget {
-  final IconData? icon; // Nullable icon
-  final String? imageUrl; // Nullable imageUrl
-  final String? label; // Optional label text
+  final IconData? icon;
+  final String? imageUrl;
+  final String? label;
 
   CollectionItem({this.icon, this.imageUrl, this.label});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
+      mainAxisSize: MainAxisSize.min,
       children: [
         ElevatedButton(
           onPressed: () {
             // Handle button press
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFfafad2), // Background color of the button
-            shape: CircleBorder(), // Circular shape
-            padding: EdgeInsets.all(8), // Padding inside the button
-            minimumSize: Size(60, 60), // Size of the button
-            elevation: 2, // Shadow elevation
+            backgroundColor: Color(0xFFfafad2),
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(8),
+            minimumSize: Size(60, 60),
+            elevation: 2,
           ),
           child: imageUrl != null
               ? Image.asset(imageUrl!, width: 30, height: 30) // Use image if provided
