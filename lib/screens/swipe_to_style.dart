@@ -24,21 +24,62 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
       'image': 'assets/images/swipe_to_style_images/c1.png',
       'title': 'Stylish Summer Dress',
       'description': 'A light and airy summer dress, perfect for warm days.',
-      'price': 500
+      'price': 59.99,
     },
     {
       'image': 'assets/images/swipe_to_style_images/c2.png',
       'title': 'Comfortable Summer Outfit',
       'description': 'Designed for ultimate comfort during your summer outings.',
-      'price': 300
+      'price': 49.99,
     },
     {
       'image': 'assets/images/swipe_to_style_images/c3.png',
       'title': 'Elegant Evening Wear',
       'description': 'A perfect choice for a night out or formal event.',
-      'price': 1200
+      'price': 89.99,
     },
-    // Add more items as needed
+    {
+      'image': 'assets/images/swipe_to_style_images/c4.png',
+      'title': 'Casual Chic',
+      'description': 'A blend of casual and chic for a relaxed day.',
+      'price': 44.99,
+    },
+    {
+      'image': 'assets/images/swipe_to_style_images/c5.png',
+      'title': 'Unique Occasion Dress',
+      'description': 'Stand out at any special event with this unique design.',
+      'price': 79.99,
+    },
+    {
+      'image': 'assets/images/swipe_to_style_images/c6.png',
+      'title': 'Trendy Summer Look',
+      'description': 'A trendy outfit to keep you cool and stylish this summer.',
+      'price': 54.99,
+    },
+    {
+      'image': 'assets/images/swipe_to_style_images/c7.png',
+      'title': 'Comfort Meets Style',
+      'description': 'Combining comfort and style in this must-have summer dress.',
+      'price': 64.99,
+    },
+    {
+      'image': 'assets/images/swipe_to_style_images/c8.png',
+      'title': 'Event Ready',
+      'description': 'An elegant and versatile outfit, ready for any event.',
+      'price': 74.99,
+    },
+    {
+      'image': 'assets/images/swipe_to_style_images/c9.png',
+      'title': 'Classic with a Twist',
+      'description': 'A modern take on a classic design, perfect for any occasion.',
+      'price': 69.99,
+    },
+    {
+      'image': 'assets/images/swipe_to_style_images/c10.png',
+      'title': 'Elegant and Comfortable',
+      'description': 'An elegant outfit that prioritizes comfort without compromise.',
+      'price': 79.99,
+    },
   ];
 
   // List to manage cart items
@@ -92,17 +133,19 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ProductDescriptionPage(
-                                  imagePath: items[index]['image']!,
-                                  title: items[index]['title']!,
-                                  description: items[index]['description']!,
+                                  price: items[index]['price'],
+                                  imagePath: items[index]['image'],
+                                  title: items[index]['title'],
+                                  description: items[index]['description'],
                                 ),
                               ),
                             );
                           },
                           child: ClothCard(
-                            imagePath: items[index]['image']!,
-                            title: items[index]['title']!,
-                            description: items[index]['description']!,
+                            imagePath: items[index]['image'],
+                            title: items[index]['title'],
+                            description: items[index]['description'],
+                            price: items[index]['price'],
                           ),
                         );
                       },
@@ -121,7 +164,6 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
                     radius: 30,
                     child: Icon(Icons.close_rounded, color: closeIconColor, size: 40),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),
                     child: CircleAvatar(
@@ -203,9 +245,9 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
     } else {
       setState(() {
         cartItems.add(Product(
-          name: productData['title']!,
-          imageUrl: productData['image']!,
-          price: productData['price']!,
+          name: productData['title'],
+          imageUrl: productData['image'],
+          price: productData['price'],
           color: 'Assorted',
         ));
       });
@@ -217,12 +259,14 @@ class ClothCard extends StatelessWidget {
   final String imagePath;
   final String title;
   final String description;
+  final double price;
 
   const ClothCard({
     Key? key,
     required this.imagePath,
     required this.title,
     required this.description,
+    required this.price,
   }) : super(key: key);
 
   @override
@@ -257,6 +301,11 @@ class ClothCard extends StatelessWidget {
                   Text(
                     description,
                     style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Rs ${price.toStringAsFixed(2)}',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
                   ),
                 ],
               ),

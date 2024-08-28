@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:slay/screens/chatbot_page.dart';
-import 'package:slay/screens/home_screen.dart';
-import 'package:slay/screens/my_bag_screen.dart';
-import 'package:slay/screens/register_screen.dart';
+import 'package:slay/screens/search_page.dart';
 import 'package:slay/screens/swipe_to_style.dart';
 
 class HomePage extends StatefulWidget {
@@ -170,6 +168,14 @@ class SearchBar extends StatelessWidget {
             borderSide: BorderSide(color: Colors.grey[400]!, width: 1), // Slightly darker when focused
           ),
         ),
+          onSubmitted: (value) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchResultsPage(searchQuery: value),
+              ),
+            );
+          } ,
       ),
     );
   }
