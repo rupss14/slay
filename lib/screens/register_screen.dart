@@ -2,11 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart'; // For picking images
 import 'dart:io';
+import 'dart:convert'; // For encoding image to base64
+import 'package:http/http.dart' as http; // For HTTP requests
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:slay/screens/home_screen.dart'; // For social icons
-
-//   backgroundColor: Color(0xFFE5C366),
-//   foregroundColor: Color(0xFFeee8aa)
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -17,6 +16,12 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
   XFile? _imageFile;
   late AnimationController _animationController;
   late Animation<double> _animation;
+
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -136,16 +141,18 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
       },
     );
   }
+
   String getSkinColorCode() {
     // Dummy implementation. Replace with actual logic to get skin color code.
     return '#F1C6B7'; // Example color code
   }
+
   void _showAnalysisResults() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          backgroundColor:Color(0xFFeee8aa),
+          backgroundColor: Color(0xFFeee8aa),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -169,7 +176,6 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
                 _buildFeatureRow('LINES & WRINKLES', 3),
                 _buildFeatureRow('DARK SPOTS', 1),
                 SizedBox(height: 20),
-                // Add skin color code information
                 Text(
                   'Your skin color code is: ${getSkinColorCode()}',
                   style: TextStyle(
@@ -201,7 +207,6 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
     );
   }
 
-
   Widget _buildFeatureRow(String feature, int level) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -226,6 +231,59 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
       ),
     );
   }
+
+  void _sendUserData() async {
+    final url = 'http://10.196.223.254:5001/create'; // Ensure the URL is correct.
+
+    // Prepare the image data
+    String? base64Image;
+    if (_imageFile != null) {
+      final imageBytes = await _imageFile!.readAsBytes();
+      base64Image = base64Encode(imageBytes);
+    }
+
+    // Prepare user data
+    final userData = {
+      'full_name': _fullNameController.text,
+      'phone_number': _phoneNumberController.text,
+      'email': _emailController.text,
+      'password': _passwordController.text,
+      'confirm_password': _confirmPasswordController.text,
+      'profile_image': base64Image,
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(userData),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registration successful!')),
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } else {
+        // Handle server error
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registration failed: ${response.reasonPhrase}')),
+        );
+      }
+    } catch (e) {
+      // Handle network error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred: $e')),
+      );
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -242,7 +300,6 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
               ),
             ),
           ),
-
           Container(
             width: double.infinity,
             height: double.infinity,
@@ -257,7 +314,6 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
               ),
             ),
           ),
-
           // Foreground Content
           Column(
             children: [
@@ -321,24 +377,24 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
                     children: [
                       SizedBox(height: 30), // Spacing
 
-                      // First Name TextField
-                      _buildTextField("Full Name"),
+                      // Full Name TextField
+                      _buildTextField("Full Name", controller: _fullNameController),
                       SizedBox(height: 20),
 
                       // Phone Number TextField
-                      _buildTextField("Phone Number", keyboardType: TextInputType.phone),
+                      _buildTextField("Phone Number", keyboardType: TextInputType.phone, controller: _phoneNumberController),
                       SizedBox(height: 20),
 
                       // Email Address TextField
-                      _buildTextField("Email Address"),
+                      _buildTextField("Email Address", controller: _emailController),
                       SizedBox(height: 20),
 
                       // Password TextField
-                      _buildTextField("Password", isPassword: true),
+                      _buildTextField("Password", isPassword: true, controller: _passwordController),
                       SizedBox(height: 20),
 
                       // Confirm Password TextField
-                      _buildTextField("Confirm Password", isPassword: true),
+                      _buildTextField("Confirm Password", isPassword: true, controller: _confirmPasswordController),
                       SizedBox(height: 40),
 
                       // Register Button
@@ -347,12 +403,7 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
                         child: SizedBox(
                           width: double.infinity, // Full width
                           child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => HomePage()),
-                              );
-                            },
+                            onPressed: _sendUserData,
                             style: TextButton.styleFrom(
                               backgroundColor: Color(0xFFE5C366),
                               foregroundColor: Color(0xFFeee8aa),
@@ -464,10 +515,11 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
   }
 
   // Helper method to build a TextField widget
-  Widget _buildTextField(String labelText, {bool isPassword = false, TextInputType keyboardType = TextInputType.text}) {
+  Widget _buildTextField(String labelText, {bool isPassword = false, TextInputType keyboardType = TextInputType.text, TextEditingController? controller}) {
     return Container(
       margin: const EdgeInsets.only(left: 16.0, right: 8.0), // Add right margin here
       child: TextField(
+        controller: controller,
         obscureText: isPassword,
         keyboardType: keyboardType,
         style: TextStyle(color: Colors.white),
