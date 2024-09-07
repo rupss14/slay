@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:slay/screens/my_bag_screen.dart';
 import 'package:slay/screens/product_page.dart';
+import 'package:slay/constants/product.dart';
 
 class ClothSwipePage extends StatefulWidget {
   @override
@@ -21,65 +22,87 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
   // List of items with images, titles, descriptions, and prices
   List<Map<String, dynamic>> items = [
     {
-      'image': 'assets/images/swipe_to_style_images/c1.png',
-      'title': 'Stylish Summer Dress',
-      'description': 'A light and airy summer dress, perfect for warm days.',
-      'price': 59.99,
+  'image': 'assets/images/swipe_to_style_images/c1.png',
+  'product_name': 'Stylish Summer Dress',
+  'description': 'A light and airy summer dress, perfect for warm days.',
+  'retail_price': 59.99,
+  'brand':'Puma',
+  'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c2.png',
+'product_name': 'Comfortable Summer Outfit',
+'description': 'Designed for ultimate comfort during your summer outings.',
+'retail_price': 49.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c3.png',
+'product_name': 'Elegant Evening Wear',
+'description': 'A perfect choice for a night out or formal event.',
+'retail_price': 89.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c4.png',
+'product_name': 'Casual Chic',
+'description': 'A blend of casual and chic for a relaxed day.',
+'retail_price': 44.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c5.png',
+'product_name': 'Unique Occasion Dress',
+'description': 'Stand out at any special event with this unique design.',
+'retail_price': 79.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c6.png',
+'product_name': 'Trendy Summer Look',
+'description': 'A trendy outfit to keep you cool and stylish this summer.',
+'retail_price': 54.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c7.png',
+'product_name': 'Comfort Meets Style',
+'description': 'Combining comfort and style in this must-have summer dress.',
+'retail_price': 64.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c8.png',
+'product_name': 'Event Ready',
+'description': 'An elegant and versatile outfit, ready for any event.',
+'retail_price': 74.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c9.png',
+'product_name': 'Classic with a Twist',
+'description': 'A modern take on a classic design, perfect for any occasion.',
+'retail_price': 69.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+},
+{
+'image': 'assets/images/swipe_to_style_images/c10.png',
+'product_name': 'Elegant and Comfortable',
+'description': 'An elegant outfit that prioritizes comfort without compromise.',
+'retail_price': 79.99,
+'brand':'Puma',
+'tertiary':'Casual Wear'
+
     },
-    {
-      'image': 'assets/images/swipe_to_style_images/c2.png',
-      'title': 'Comfortable Summer Outfit',
-      'description': 'Designed for ultimate comfort during your summer outings.',
-      'price': 49.99,
-    },
-    {
-      'image': 'assets/images/swipe_to_style_images/c3.png',
-      'title': 'Elegant Evening Wear',
-      'description': 'A perfect choice for a night out or formal event.',
-      'price': 89.99,
-    },
-    {
-      'image': 'assets/images/swipe_to_style_images/c4.png',
-      'title': 'Casual Chic',
-      'description': 'A blend of casual and chic for a relaxed day.',
-      'price': 44.99,
-    },
-    {
-      'image': 'assets/images/swipe_to_style_images/c5.png',
-      'title': 'Unique Occasion Dress',
-      'description': 'Stand out at any special event with this unique design.',
-      'price': 79.99,
-    },
-    {
-      'image': 'assets/images/swipe_to_style_images/c6.png',
-      'title': 'Trendy Summer Look',
-      'description': 'A trendy outfit to keep you cool and stylish this summer.',
-      'price': 54.99,
-    },
-    {
-      'image': 'assets/images/swipe_to_style_images/c7.png',
-      'title': 'Comfort Meets Style',
-      'description': 'Combining comfort and style in this must-have summer dress.',
-      'price': 64.99,
-    },
-    {
-      'image': 'assets/images/swipe_to_style_images/c8.png',
-      'title': 'Event Ready',
-      'description': 'An elegant and versatile outfit, ready for any event.',
-      'price': 74.99,
-    },
-    {
-      'image': 'assets/images/swipe_to_style_images/c9.png',
-      'title': 'Classic with a Twist',
-      'description': 'A modern take on a classic design, perfect for any occasion.',
-      'price': 69.99,
-    },
-    {
-      'image': 'assets/images/swipe_to_style_images/c10.png',
-      'title': 'Elegant and Comfortable',
-      'description': 'An elegant outfit that prioritizes comfort without compromise.',
-      'price': 79.99,
-    },
+    // Add more items here...
   ];
 
   // List to manage cart items
@@ -133,19 +156,21 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ProductDescriptionPage(
-                                  price: items[index]['price'],
-                                  imagePath: items[index]['image'],
-                                  title: items[index]['title'],
-                                  description: items[index]['description'],
+                                  retail_price: items[index]['retail_price'] as double,
+                                  image: items[index]['image'] as String,
+                                  product_name: items[index]['product_name'] as String,
+                                  description: items[index]['description'] as String,
+                                  brand: items[index]['brand'] as String,
+                                  tertiary: items[index]['tertiary'] as String,
                                 ),
                               ),
                             );
                           },
                           child: ClothCard(
-                            imagePath: items[index]['image'],
-                            title: items[index]['title'],
-                            description: items[index]['description'],
-                            price: items[index]['price'],
+                            image: items[index]['image'] as String,
+                            product_name: items[index]['product_name'] as String,
+                            description: items[index]['description'] as String,
+                            retail_price: items[index]['retail_price'] as double,
                           ),
                         );
                       },
@@ -189,7 +214,6 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
   bool _onSwipe(int previousIndex, int? currentIndex, CardSwiperDirection direction) {
     debugPrint('The card $previousIndex was swiped to the ${direction.name}.');
 
-    // Handle swipe directions
     if (direction == CardSwiperDirection.left) {
       setState(() {
         closeIconColor = Colors.red;
@@ -203,6 +227,8 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
         cartIconColor = Colors.black;
       });
     } else if (direction == CardSwiperDirection.top) {
+      debugPrint("Swiped up to add to cart");
+
       setState(() {
         cartIconColor = Colors.red;
         closeIconColor = Colors.black;
@@ -212,16 +238,18 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
       // Add the swiped product to the cart
       _addProductToCart(items[previousIndex]);
 
-      // Navigate to the 'My Bag' page and pass the updated cart items
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MyBagScreen(cartItems: cartItems),
-        ),
-      );
+      // Schedule navigation after the current frame completes
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        debugPrint("Navigating to MyBagScreen");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MyBagScreen(cartItems: cartItems),
+          ),
+        );
+      });
     }
 
-    // Reset icon colors when the new card appears
     if (currentIndex != null) {
       Future.delayed(Duration(milliseconds: 300), () {
         setState(() {
@@ -233,11 +261,12 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
         });
       });
     }
+
     return true;
   }
 
   void _addProductToCart(Map<String, dynamic> productData) {
-    int existingIndex = cartItems.indexWhere((item) => item.name == productData['title']);
+    int existingIndex = cartItems.indexWhere((item) => item.product_name == productData['product_name']);
     if (existingIndex != -1) {
       setState(() {
         cartItems[existingIndex].quantity++;
@@ -245,28 +274,30 @@ class _ClothSwipePageState extends State<ClothSwipePage> {
     } else {
       setState(() {
         cartItems.add(Product(
-          name: productData['title'],
-          imageUrl: productData['image'],
-          price: productData['price'],
+          product_name: productData['product_name'],
+          image: productData['image'],
+          retail_price: productData['retail_price'],
           color: 'Assorted',
+          quantity: 1,
         ));
       });
     }
+    debugPrint('Cart items: $cartItems');
   }
 }
 
 class ClothCard extends StatelessWidget {
-  final String imagePath;
-  final String title;
+  final String image;
+  final String product_name;
   final String description;
-  final double price;
+  final double? retail_price;
 
   const ClothCard({
     Key? key,
-    required this.imagePath,
-    required this.title,
+    required this.image,
+    required this.product_name,
     required this.description,
-    required this.price,
+    required this.retail_price,
   }) : super(key: key);
 
   @override
@@ -281,7 +312,7 @@ class ClothCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
               child: Image.asset(
-                imagePath,
+                image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -294,7 +325,7 @@ class ClothCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    product_name,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8),
@@ -304,7 +335,7 @@ class ClothCard extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Rs ${price.toStringAsFixed(2)}',
+                    retail_price != null ? 'Rs ${retail_price!.toStringAsFixed(2)}' : 'Price not available',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
                   ),
                 ],

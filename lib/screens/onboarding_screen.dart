@@ -15,27 +15,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Widget> _onboardingPages = [
     OnboardingPage(
-      image: 'assets/images/on_boarding_images/onboarding_image1.png',
+      image: 'assets/images/on_boarding_images/onboarding_img1.png',
       title: 'Fashion Query Answering',
       description: 'Provides accurate answers to various fashion-related questions.',
     ),
     OnboardingPage(
-      image: 'assets/images/on_boarding_images/onboarding_image2.png',
+      image: 'assets/images/on_boarding_images/onboarding_img2.png',
       title: 'Outfit Suggestion',
       description: 'Recommends complete outfits tailored to specific occasions or user preferences.',
     ),
     OnboardingPage(
-      image: 'assets/images/onboarding3.png',
+      image: 'assets/images/on_boarding_images/onboarding_img3.png',
       title: 'Accessory Styling',
       description: 'Suggests matching accessories to complement an outfit.',
     ),
     OnboardingPage(
-      image: 'assets/images/onboarding3.png',
+      image: 'assets/images/on_boarding_images/onboarding_img4.png',
       title: 'Skin Tone Analysis',
       description: 'Analyzes skin tone to offer personalized fashion advice and color recommendations.',
     ),
     OnboardingPage(
-      image: 'assets/images/onboarding2.png',
+      image: 'assets/images/on_boarding_images/onboarding_img5.png',
       title: 'One-Click-Shop',
       description: 'Enables seamless purchasing of recommended items directly from the chatbot',
     ),
@@ -134,7 +134,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: IconButton(
                 icon: ImageIcon(
                   AssetImage("assets/images/icons/back_arrow_icon.png"),
-                  size: 50,
+                  size: 70,
                 ),
                 onPressed: () {
                   if (currentIndex > 0) {
@@ -210,16 +210,17 @@ class OnboardingPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Container to adjust the position of the image
+          // Adjusted the Container and Image size
           Container(
-            margin: EdgeInsets.only(bottom: 100), // Adjust margin to reduce the gap between the image and title
+            //margin: EdgeInsets.only(bottom: 60), // Adjusted margin to reduce the gap between the image and title
             child: Image.asset(
               image,
-              height: 200,
-              width: 200,
+              height: 300, // Increased height for a larger image
+              width: 300, // Increased width for a larger image
+              fit: BoxFit.contain, // Ensure the image fits within its bounds without cropping
             ),
           ),
-          SizedBox(height: 10),
+
           Text(
             title,
             style: TextStyle(
@@ -250,3 +251,4 @@ class OnboardingPage extends StatelessWidget {
     );
   }
 }
+

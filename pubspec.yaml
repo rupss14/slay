@@ -75,6 +75,7 @@ flutter:
      - assets/images/on_boarding_images/
      - assets/images/icons/
      - assets/images/login_page_images/
+     - assets/images/registration_images/
      - assets/images/home_screen_images/
      - assets/images/chatbot_images/
      - assets/images/swipe_to_style_images/

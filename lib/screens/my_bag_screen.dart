@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:slay/screens/payment_page.dart';
 import 'package:slay/screens/shipment_page.dart';
+import 'package:slay/constants/product.dart';
 
 class MyBagScreen extends StatefulWidget {
   final List<Product> cartItems;
@@ -15,7 +16,7 @@ class MyBagScreen extends StatefulWidget {
 class _MyBagScreenState extends State<MyBagScreen> {
   // Calculate the total amount
   int getTotalAmount() {
-    return widget.cartItems.fold(0, (total, item) => total + (item.price * item.quantity));
+    return widget.cartItems.fold(0, (total, item) => total + (item.retail_price * item.quantity));
   }
 
   @override
@@ -95,7 +96,7 @@ class _MyBagScreenState extends State<MyBagScreen> {
 
   Widget _buildCartItem(Product product, int index) {
     return Slidable(
-      key: ValueKey(product.name),
+      key: ValueKey(product.product_name),
       startActionPane: ActionPane(
         motion: const ScrollMotion(),
         extentRatio: 0.3,
@@ -131,19 +132,19 @@ class _MyBagScreenState extends State<MyBagScreen> {
           child: Row(
             children: [
               Image.asset(
-                  product.imageUrl, height: 80, width: 80, fit: BoxFit.cover),
+                  product.image, height: 80, width: 80, fit: BoxFit.cover),
               SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(product.name, style: TextStyle(
+                    Text(product.product_name, style: TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold)),
                     SizedBox(height: 8),
                     Text('Color: ${product.color}',
                         style: TextStyle(color: Colors.grey)),
                     SizedBox(height: 8),
-                    Text('Rs ${product.price}', style: TextStyle(
+                    Text('Rs ${product.retail_price}', style: TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -249,18 +250,4 @@ class _MyBagScreenState extends State<MyBagScreen> {
   }
 }
 
-class Product {
-  final String name;
-  final String imageUrl;
-  final int price;
-  final String color;
-  int quantity;
 
-  Product({
-    required this.name,
-    required this.imageUrl,
-    required this.price,
-    required this.color,
-    this.quantity = 1,
-  });
-}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:slay/screens/chatbot_page.dart';
+import 'package:slay/screens/my_bag_screen.dart';
 import 'package:slay/screens/search_page.dart';
 import 'package:slay/screens/swipe_to_style.dart';
 
@@ -29,10 +30,10 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: [
               Image.asset(
-                //"assets/images/logo_image/slay_transparent_background_logo.png",
-                "assets/images/logo_image/slay_logo.png",
-                width: 65,
-                height: 65,
+                // "assets/images/logo_image/slay_transparent_background_logo.png",
+                 "assets/images/slay_black.png",
+                width: 80,
+                height: 80,
               ),
               //SizedBox(width: 5),
               Text(
@@ -101,8 +102,8 @@ class _HomePageState extends State<HomePage> {
           items: <Widget>[
             Icon(Icons.home, size: 30),
             ImageIcon(AssetImage("assets/images/icons/swipe_to_style_icon.png"),size: 30,),
-            ImageIcon(AssetImage("assets/images/chatbot_images/robot_image.png"),size: 30,),
-            Icon(Icons.search, size: 30),
+            ImageIcon(AssetImage("assets/images/home_screen_images/chatbot.png"),size: 30,),
+            ImageIcon(AssetImage("assets/images/home_screen_images/indie_icon.png"),size: 45,),
           ],
           onTap: (index) {
             switch (index) {
@@ -129,11 +130,11 @@ class _HomePageState extends State<HomePage> {
                 break;
               case 3:
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SearchBar()),
-                );
-                break;
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => SearchBar()),
+                // );
+                // break;
             }
           },
         ),

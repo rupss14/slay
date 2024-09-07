@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart'; // For picking images
+import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'dart:convert'; // For encoding image to base64
-import 'package:http/http.dart' as http; // For HTTP requests
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:slay/screens/home_screen.dart'; // For social icons
+import 'package:slay/screens/home_screen.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -21,7 +21,6 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -148,6 +147,14 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
   }
 
   void _showAnalysisResults() {
+    // Mocked JSON data for demonstration purposes
+    final Map<String, dynamic> analysisData = {
+      'Colour Palette': ['#DAA520', '#8B4513', '#FF4500', '#556B2F', '#BDB76B'],
+      'Explanation': "The user's skin tone has warm, golden undertones typical of an Autumn color type. The rich, deep quality of the complexion suits earthy and warm colors.",
+      'Season': 'Autumn',
+      'Styles': 'Opt for rich textures like leather, suede, and wool in earth tones. Clothing styles should be classic with clean lines to enhance natural warmth.',
+    };
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -176,14 +183,71 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
                 _buildFeatureRow('LINES & WRINKLES', 3),
                 _buildFeatureRow('DARK SPOTS', 1),
                 SizedBox(height: 20),
+
+                // Display the color palette
                 Text(
-                  'Your skin color code is: ${getSkinColorCode()}',
+                  'Recommended Colour Palette:',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: analysisData['Colour Palette'].map<Widget>((color) {
+                    return Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Color(int.parse(color.replaceFirst('#', '0xFF'))),
+                        shape: BoxShape.circle,
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: 20),
+
+                // Display explanation
+                Text(
+                  'Explanation:',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  analysisData['Explanation'],
+                  style: TextStyle(fontSize: 14),
+                ),
+                SizedBox(height: 20),
+
+                // Display season
+                Text(
+                  'Season: ${analysisData['Season']}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 20),
+
+                // Display style suggestions
+                Text(
+                  'Style Suggestions:',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  analysisData['Styles'],
+                  style: TextStyle(fontSize: 14),
+                ),
+                SizedBox(height: 20),
+
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
@@ -206,6 +270,7 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
       },
     );
   }
+
 
   Widget _buildFeatureRow(String feature, int level) {
     return Padding(
@@ -233,7 +298,7 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
   }
 
   void _sendUserData() async {
-    final url = 'http://10.196.223.254:5001/create'; // Ensure the URL is correct.
+    final url = 'http://10.0.2.2:5001/post-endpoint'; // Ensure the URL and port are correct.
 
     // Prepare the image data
     String? base64Image;
@@ -244,12 +309,11 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
 
     // Prepare user data
     final userData = {
-      'full_name': _fullNameController.text,
+      'name': _fullNameController.text,
       'phone_number': _phoneNumberController.text,
       'email': _emailController.text,
       'password': _passwordController.text,
-      'confirm_password': _confirmPasswordController.text,
-      'profile_image': base64Image,
+      'image': base64Image,
     };
 
     try {
@@ -260,7 +324,6 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
       );
 
       if (response.statusCode == 200) {
-        // Handle success
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Registration successful!')),
         );
@@ -269,20 +332,16 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
           MaterialPageRoute(builder: (context) => HomePage()),
         );
       } else {
-        // Handle server error
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Registration failed: ${response.reasonPhrase}')),
         );
       }
     } catch (e) {
-      // Handle network error
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('An error occurred: $e')),
       );
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -300,20 +359,20 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
               ),
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.black.withOpacity(0.9), // Dark at the top
-                  Colors.black.withOpacity(0.3), // Lighter at the bottom
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-          ),
+          // Container(
+          //   width: double.infinity,
+          //   height: double.infinity,
+          //   decoration: BoxDecoration(
+          //     gradient: LinearGradient(
+          //       colors: [
+          //         Colors.black.withOpacity(0.3), // Dark at the top
+          //         Colors.black.withOpacity(0.3), // Lighter at the bottom
+          //       ],
+          //       begin: Alignment.topCenter,
+          //       end: Alignment.bottomCenter,
+          //     ),
+          //   ),
+          // ),
           // Foreground Content
           Column(
             children: [
@@ -351,18 +410,16 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
                     ),
                     // Profile Picture with alignment
                     GestureDetector(
-                      onTap: _pickImage,
+                      onTap: _pickImage, // Call the method here
                       child: CircleAvatar(
                         radius: 40, // Profile picture size
                         backgroundColor: Colors.white.withOpacity(0.8),
-                        backgroundImage: _imageFile != null
-                            ? FileImage(File(_imageFile!.path))
-                            : null,
-                        child: _imageFile == null
-                            ? Icon(FontAwesome.camera_alt, size: 40, color: Colors.black)
-                            : null,
+                        backgroundImage: AssetImage('assets/images/registration_images/profile_image.jpg'),
+                        child: null,
                       ),
                     ),
+
+
                   ],
                 ),
               ),
@@ -394,7 +451,7 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
                       SizedBox(height: 20),
 
                       // Confirm Password TextField
-                      _buildTextField("Confirm Password", isPassword: true, controller: _confirmPasswordController),
+                      _buildTextField("Confirm Password", isPassword: true), //controller: _confirmPasswordController),
                       SizedBox(height: 40),
 
                       // Register Button
@@ -404,6 +461,12 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
                           width: double.infinity, // Full width
                           child: TextButton(
                             onPressed: _sendUserData,
+                            // onPressed: (){
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(builder: (context) => HomePage()),
+                            //   );
+                            // },
                             style: TextButton.styleFrom(
                               backgroundColor: Color(0xFFE5C366),
                               foregroundColor: Color(0xFFeee8aa),
@@ -517,20 +580,17 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
   // Helper method to build a TextField widget
   Widget _buildTextField(String labelText, {bool isPassword = false, TextInputType keyboardType = TextInputType.text, TextEditingController? controller}) {
     return Container(
-      margin: const EdgeInsets.only(left: 16.0, right: 8.0), // Add right margin here
+      margin: const EdgeInsets.only(left: 16.0, right: 8.0),
       child: TextField(
         controller: controller,
         obscureText: isPassword,
         keyboardType: keyboardType,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 1), // Adjust vertical padding here
+          contentPadding: EdgeInsets.symmetric(vertical: 1),
           labelText: labelText,
-          labelStyle: TextStyle(color: Color(0xFFd9d9d9), fontFamily: 'LogInFont'),
+          labelStyle: TextStyle(color: Colors.white),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
-          focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
           ),
         ),

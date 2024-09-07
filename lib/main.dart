@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor:Color(0xFF4a790),
       ),
-      home:sendPostRequest(),
+      home:SplashScreen()
     );
   }
 }

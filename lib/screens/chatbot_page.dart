@@ -12,54 +12,44 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _controller = TextEditingController();
   final List<Map<String, dynamic>> _messages = [
     {
-      "text": "Hi, I'm heading to the mall this afternoon",
+      "text": "Hey Ava here, how can I help you?",
       "isUser": false,
-      "date": DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(Duration(days: 2))),
-      "time": "08:02"
+      "date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      "time": "11:50"
     },
     {
-      "text": "Do you wanna join with me?",
+      "text": "Will you recommend some casual wears and accessories ?",
+      "isUser": true,
+      "date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      "time": "11:51"
+    },
+
+    {
+      "text": "Of course",
       "isUser": false,
-      "date": DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(Duration(days: 2))),
-      "time": "08:03"
+      "date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      "time": "11:51",
+      "images": [
+        'assets/images/swipe_to_style_images/c1.png',
+        'assets/images/swipe_to_style_images/c2.png',
+        'assets/images/swipe_to_style_images/c3.png',
+        'assets/images/swipe_to_style_images/c4.png',
+        'assets/images/swipe_to_style_images/c5.png',
+        'assets/images/swipe_to_style_images/c6.png',
+        'assets/images/swipe_to_style_images/c7.png',
+      ]
     },
     {
       "text": "It looks awesome!",
       "isUser": true,
-      "date": DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(Duration(days: 1))),
-      "time": "08:21"
+      "date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      "time": "11:59"
     },
     {
-      "text": "But can I bring my girlfriend? They want to go to the mall.",
-      "isUser": true,
-      "date": DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(Duration(days: 1))),
-      "time": "08:22"
-    },
-    {
-      "text": "Of course, just him",
+      "text": "I'm glad you liked it! If you have any more questions or need further adjustments, feel free to ask.",
       "isUser": false,
       "date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      "time": "08:34",
-      "images": [
-        'assets/images/my_bag_images/coffee_table.jpg',
-        'assets/images/my_bag_images/chair_image.jpg',
-        'assets/images/my_bag_images/shelf.jpg',
-        'assets/images/my_bag_images/shelf.jpg',
-        'assets/images/my_bag_images/shelf.jpg',
-        'assets/images/my_bag_images/shelf.jpg'
-      ]
-    },
-    {
-      "text": "Thanks Rehan",
-      "isUser": true,
-      "date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      "time": "08:36"
-    },
-    {
-      "text": "Ur Welcome!",
-      "isUser": false,
-      "date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      "time": "08:38"
+      "time": "12:00"
     },
   ];
 
@@ -249,7 +239,7 @@ class _ChatPageState extends State<ChatPage> {
                                               children: [
                                                 if (message.containsKey('images')) // Check for image keys
                                                   Container(
-                                                    height: 150, // Adjust the height of the image slider
+                                                    height: 300, // Adjust the height of the image slider
                                                     child: PageView.builder(
                                                       controller: _pageController,
                                                       scrollDirection: Axis.horizontal,
@@ -325,7 +315,7 @@ class _ChatPageState extends State<ChatPage> {
                             radius: 20,
                             backgroundColor: Color(0xFFE0B0FF),
                             child: IconButton(
-                              icon: Icon(Icons.mic, color: Color(0xFF7851A9)),
+                              icon: Icon(Icons.camera_alt_rounded, color: Color(0xFF7851A9)),
                               onPressed: () {},
                             ),
                           ),
@@ -400,7 +390,7 @@ class _ChatPageState extends State<ChatPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'AI ChatBot',
+                          'Ava',
                           style: TextStyle(color: Color(0xFFf9f9f9), fontFamily:'OnBoardingFont2',fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
